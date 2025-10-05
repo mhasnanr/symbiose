@@ -1,0 +1,83 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px 0;
+  padding: 80px;
+  min-height: 100dvh;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(53, 114, 205);
+}
+
+.container-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+}
+
+.active-player-card {
+  box-shadow: 0 0 0 2px yellow;
+}
+
+.card-container div {
+  width: 120px;
+  height: 120px;
+  /* border: 1px solid white; */
+  display: grid;
+  place-content: center;
+  text-align: center;
+  color: white;
+}
+
+.card-container.river {
+  margin: 3em;
+  display: flex;
+  width: fit-content;
+}
+
+.card-container.vertical {
+  width: 240px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card-container.vertical div {
+  width: calc(50% - 0.5px);
+  height: 120px;
+}
+
+.flex {
+  display: flex;
+}
+
+.vertical div.vertical-left {
+  transform: rotate(-90deg);
+}
+
+.vertical div.vertical-right {
+  transform: rotate(90deg);
+}
+
+.horizontal-up {
+  transform: rotate(0deg);
+}
+
+.horizontal-down {
+  transform: rotate(180deg);
+}
+
+.card-type {
+  font-size: 44px;
+  margin-bottom: 5px;
+}
+
+.card-type ~ p {
+  font-size: 12px;
+}
