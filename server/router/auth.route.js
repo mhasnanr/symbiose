@@ -5,7 +5,6 @@ const passport = require('passport');
 const router = express.Router();
 
 router.post('/register', async (req, res) => {
-  console.log('hi');
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -22,8 +21,21 @@ router.post('/register', async (req, res) => {
 
 // just to create session
 // by defaul passport ga pass error, so harus handle manual
-router.post('/login', passport.authenticate('local'), (err, req, res) => {
-  res.status(200).json({ message: 'login berhasil' });
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return res.status(500).json({ message: 'Terjadi kesalahan server', error: err.message });
+    }
+    if (!user) {
+      return res.status(401).json({ message: 'Login gagal', error: info && info.message ? info.message : 'Email atau password salah' });
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return res.status(500).json({ message: 'Gagal membuat session', error: err.message });
+      }
+      return res.status(200).json({ message: 'Login berhasil' });
+    });
+  })(req, res, next);
 });
 
 module.exports = router;

@@ -1,5 +1,6 @@
-const authRouter = require('./router/auth.route');
 const { User } = require('./models');
+const authRouter = require('./router/auth.route');
+const roomRouter = require('./router/room.route');
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -74,6 +75,7 @@ app.get('/', (req, res) => {
   res.send('Hello world!');
 });
 app.use('/auth', authRouter);
+app.use('/room', roomRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
