@@ -5,8 +5,10 @@ const roomRouter = require('./router/room.route');
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
 const session = require('express-session');
+const cors = require('cors');
+const LocalStrategy = require('passport-local');
+const MongoStore = require('connect-mongo');
 
 const app = express();
 const port = 3000;
@@ -14,6 +16,14 @@ const port = 3000;
 // json handler
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// cors configuration
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+);
 
 // mongodb connection
 mongoose.connect('mongodb://127.0.0.1:27017/symbiose');
@@ -65,6 +75,10 @@ app.use(
     secret: 'secret',
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: 'mongodb://localhost:27017/bulletin',
+      collectionName: 'sessions',
+    }),
   })
 );
 app.use(passport.initialize());
