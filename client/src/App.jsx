@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import './App.css';
 import cards from '../utils/cards';
 import { convertTypeIntoEmoji, pickFirstPlayer, randomizeRiver } from '../utils/game-mechanics';
-import './App.css';
+
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const GameState = {
   PREPARING: 'preparing',
@@ -15,7 +17,9 @@ const PickMode = {
   NONE: 'none',
 };
 
-function App() {
+function GameRoom() {
+  const navigate = useNavigate();
+  
   const [gameState, setGameState] = useState(GameState.PREPARING);
   const [cardsOnDeck, setCardsOnDeck] = useState([]);
 
@@ -464,6 +468,18 @@ function App() {
         </div>
       </div>
 
+      <button
+        style={{ position: 'fixed', top: 0, right: 0 }}
+        onClick={() => {
+          fetch('http://localhost:3000/auth/logout', {
+            method: 'post',
+            credentials: 'include',
+          }).then(() => navigate('/login'));
+        }}
+      >
+        logout
+      </button>
+
       <div
         style={{
           position: 'fixed',
@@ -502,4 +518,4 @@ function App() {
   );
 }
 
-export default App;
+export default GameRoom;
