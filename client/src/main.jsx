@@ -2,6 +2,8 @@ import './index.css';
 import App from './App.jsx';
 import LoginPage from './pages/login/login.jsx';
 import RegisterPage from './pages/register/register.jsx';
+import RoomListPage from './pages/room/roomList.jsx';
+import AddRoomPage from './pages/room/addRoom.jsx';
 
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
@@ -15,6 +17,22 @@ createRoot(document.getElementById('root')).render(
         element={
           <AuthorizedRoute>
             <App />
+          </AuthorizedRoute>
+        }
+      />
+      <Route
+        path="/rooms"
+        element={
+          <AuthorizedRoute>
+            <RoomListPage />
+          </AuthorizedRoute>
+        }
+      />
+      <Route
+        path="/rooms/add"
+        element={
+          <AuthorizedRoute>
+            <AddRoomPage />
           </AuthorizedRoute>
         }
       />
