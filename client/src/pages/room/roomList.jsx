@@ -1,7 +1,10 @@
+import './roomList.css';
+
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 const RoomListPage = () => {
+  const navigate = useNavigate();
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
@@ -13,13 +16,47 @@ const RoomListPage = () => {
       .then((value) => setRooms(value.data));
   }, []);
 
+  const joinRoom = (room, password) => {
+    fetch(`http://localhost:3000/room/${room._id}/join`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ password }),
+    })
+      .then((res) => {
+        if (res.ok) {
+          navigate(`/room/${room._id}`);
+        } else {
+          alert('Failed to join room. Please check your password.');
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div>
-      <Link to="/rooms/add">
-        <button>Create new room</button>
+      <Link to="/room/add">
+        <button className="btn-new-room">Create new room</button>
       </Link>
       {rooms.map((room) => (
-        <p key={room._id}>{room.title}</p>
+        <div key={room._id} className="room-item">
+          <p>{room.title}</p>
+          <button
+            onClick={() => {
+              if (room.publicity === 'private') {
+                alert('This room is private');
+                const password = prompt('Enter room password:');
+                if (!password) return;
+                joinRoom(room, password);
+              } else {
+                alert('This room is public');
+                joinRoom(room, null);
+              }
+            }}
+          >
+            Join
+          </button>
+        </div>
       ))}
     </div>
   );

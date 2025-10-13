@@ -7,7 +7,7 @@ import AddRoomPage from './pages/room/addRoom.jsx';
 
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
-import { AuthorizedRoute, UnauthorizedRoute } from './ProtectedRoute.jsx';
+import { AuthorizedRoute, MemberRoute, UnauthorizedRoute } from './ProtectedRoute.jsx';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
@@ -21,7 +21,7 @@ createRoot(document.getElementById('root')).render(
         }
       />
       <Route
-        path="/rooms"
+        path="/room"
         element={
           <AuthorizedRoute>
             <RoomListPage />
@@ -29,7 +29,17 @@ createRoot(document.getElementById('root')).render(
         }
       />
       <Route
-        path="/rooms/add"
+        path="/room/:id"
+        element={
+          <AuthorizedRoute>
+            <MemberRoute>
+              <App />
+            </MemberRoute>
+          </AuthorizedRoute>
+        }
+      />
+      <Route
+        path="/room/add"
         element={
           <AuthorizedRoute>
             <AddRoomPage />
