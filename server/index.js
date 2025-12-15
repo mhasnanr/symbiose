@@ -9,9 +9,12 @@ const session = require('express-session');
 const cors = require('cors');
 const LocalStrategy = require('passport-local');
 const MongoStore = require('connect-mongo');
+const { createServer } = require('node:http');
+const { Server } = require('socket.io');
 
 const app = express();
-const port = 3000;
+const server = createServer(app);
+const port = 3456;
 
 // json handler
 app.use(express.json());
@@ -84,6 +87,29 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// socket.io initialization
+const io = new Server(server, {
+  cors: {
+    origin: ['http://localhost:5173'],
+  },
+});
+
+io.on('connection', (socket) => {
+  console.log(`client ${socket.id} connected`);
+  
+  socket.on('join:room', (data) => {
+    socket.join(data.roomId);
+    socket.to(data.roomId).emit('user:joined', { userId: data.userId });
+    console.log(`User joined room: ${data.roomId}`);
+  });
+
+  socket.on('leave:room', (data) => {
+    socket.leave(data.roomId);
+    socket.to(data.roomId).emit('user:left', { userId: data.userId });
+    console.log(`User left room: ${data.roomId}`);
+  });
+});
+
 // main app router
 app.get('/', (req, res) => {
   res.send('Hello world!');
@@ -91,6 +117,6 @@ app.get('/', (req, res) => {
 app.use('/auth', authRouter);
 app.use('/room', roomRouter);
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
