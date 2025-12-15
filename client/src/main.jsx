@@ -7,53 +7,60 @@ import AddRoomPage from './pages/room/addRoom.jsx';
 
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router';
-import { AuthorizedRoute, MemberRoute, UnauthorizedRoute } from './ProtectedRoute.jsx';
+import {
+  AuthorizedRoute,
+  MemberRoute,
+  UnauthorizedRoute,
+} from './ProtectedRoute.jsx';
+import SocketProvider from './SocketProvider.jsx';
 
 createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <AuthorizedRoute>
-            <RoomListPage />
-          </AuthorizedRoute>
-        }
-      />
-      <Route
-        path="/room/:id"
-        element={
-          <AuthorizedRoute>
-            <MemberRoute>
-              <App />
-            </MemberRoute>
-          </AuthorizedRoute>
-        }
-      />
-      <Route
-        path="/room/add"
-        element={
-          <AuthorizedRoute>
-            <AddRoomPage />
-          </AuthorizedRoute>
-        }
-      />
-      <Route
-        path="/login"
-        element={
-          <UnauthorizedRoute>
-            <LoginPage />
-          </UnauthorizedRoute>
-        }
-      />
-      <Route
-        path="/register"
-        element={
-          <UnauthorizedRoute>
-            <RegisterPage />
-          </UnauthorizedRoute>
-        }
-      />
-    </Routes>
-  </BrowserRouter>
+  <SocketProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <AuthorizedRoute>
+              <RoomListPage />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="/room/:id"
+          element={
+            <AuthorizedRoute>
+              <MemberRoute>
+                <App />
+              </MemberRoute>
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="/room/add"
+          element={
+            <AuthorizedRoute>
+              <AddRoomPage />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <UnauthorizedRoute>
+              <LoginPage />
+            </UnauthorizedRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <UnauthorizedRoute>
+              <RegisterPage />
+            </UnauthorizedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  </SocketProvider>
 );
