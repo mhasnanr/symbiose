@@ -76,7 +76,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: 'mongodb://localhost:27017/bulletin',
+      mongoUrl: 'mongodb://localhost:27017/symbiose',
       collectionName: 'sessions',
     }),
   })
