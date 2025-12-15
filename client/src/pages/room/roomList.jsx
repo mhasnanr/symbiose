@@ -1,14 +1,17 @@
 import './roomList.css';
+import { useContext } from 'react';
 
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
+import { SocketContext } from '../../SocketProvider';
 
 const RoomListPage = () => {
   const navigate = useNavigate();
+  const { socket } = useContext(SocketContext);
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/room', {
+    fetch(`${import.meta.env.VITE_API_URL}/room`, {
       method: 'GET',
       credentials: 'include',
     })
@@ -17,7 +20,7 @@ const RoomListPage = () => {
   }, []);
 
   const joinRoom = (room, password) => {
-    fetch(`http://localhost:3000/room/${room._id}/join`, {
+    fetch(`${import.meta.env.VITE_API_URL}/room/${room._id}/join`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -25,6 +28,7 @@ const RoomListPage = () => {
     })
       .then((res) => {
         if (res.ok) {
+          socket.emit('join:room', { roomId: room._id, userId: 'self' });
           navigate(`/room/${room._id}`);
         } else {
           alert('Failed to join room. Please check your password.');
@@ -68,7 +72,7 @@ const RoomListPage = () => {
       <button
         className="btn-logout"
         onClick={() => {
-          fetch('http://localhost:3000/auth/logout', {
+          fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
             method: 'post',
             credentials: 'include',
           }).then(() => navigate('/login'));

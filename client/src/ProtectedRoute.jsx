@@ -7,7 +7,7 @@ export const MemberRoute = ({ children }) => {
   const [isMember, setIsMember] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/room/${id}/check`, {
+    fetch(`${import.meta.env.VITE_API_URL}/room/${id}/check`, {
       credentials: 'include',
     })
       .then((res) => res.json())
@@ -25,7 +25,7 @@ export const AuthorizedRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/auth/check', {
+    fetch(`${import.meta.env.VITE_API_URL}/auth/check`, {
       credentials: 'include',
     })
       .then((res) => res.json())
@@ -43,7 +43,7 @@ export const UnauthorizedRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3000/auth/check', {
+    fetch(`${import.meta.env.VITE_API_URL}/auth/check`, {
       credentials: 'include',
     })
       .then((res) => res.json())

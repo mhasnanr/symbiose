@@ -85,14 +85,18 @@ const GameBoard = ({ cards }) => {
       const randomCardIndex = Math.floor(Math.random() * cardsOnDeck.length);
       const randomCard = cardsOnDeck[randomCardIndex];
 
-      setCardsOnDeck((prev) => prev.filter((_, index) => index !== randomCardIndex));
+      setCardsOnDeck((prev) =>
+        prev.filter((_, index) => index !== randomCardIndex)
+      );
 
       setPlayers((prev) =>
         prev.map((player) =>
           player.id === pondIndex
             ? {
                 ...player,
-                cards: player.cards.map((card, idx) => (idx === cardIndex ? randomCard : card)),
+                cards: player.cards.map((card, idx) =>
+                  idx === cardIndex ? randomCard : card
+                ),
               }
             : player
         )
@@ -109,7 +113,9 @@ const GameBoard = ({ cards }) => {
 
     if (gameState === GameState.PLAYING) {
       if (pickMode === PickMode.OPEN_SWAP) {
-        const alreadyOpenedCard = players.find((p) => p.id === pondIndex).cards[cardIndex];
+        const alreadyOpenedCard = players.find((p) => p.id === pondIndex).cards[
+          cardIndex
+        ];
 
         if (alreadyOpenedCard != null) {
           alert('You can only select an empty pond card during an open swap.');
@@ -119,14 +125,18 @@ const GameBoard = ({ cards }) => {
         const randomCardIndex = Math.floor(Math.random() * cardsOnDeck.length);
         const randomCard = cardsOnDeck[randomCardIndex];
 
-        setCardsOnDeck((prev) => prev.filter((_, index) => index !== randomCardIndex));
+        setCardsOnDeck((prev) =>
+          prev.filter((_, index) => index !== randomCardIndex)
+        );
 
         setPlayers((prev) =>
           prev.map((player) =>
             player.id === pondIndex
               ? {
                   ...player,
-                  cards: player.cards.map((card, idx) => (idx === cardIndex ? randomCard : card)),
+                  cards: player.cards.map((card, idx) =>
+                    idx === cardIndex ? randomCard : card
+                  ),
                 }
               : player
           )
@@ -154,10 +164,14 @@ const GameBoard = ({ cards }) => {
         const randomCardIndex = Math.floor(Math.random() * cardsOnDeck.length);
         const randomCard = cardsOnDeck[randomCardIndex];
 
-        setCardsOnDeck((prev) => prev.filter((_, index) => index !== randomCardIndex));
+        setCardsOnDeck((prev) =>
+          prev.filter((_, index) => index !== randomCardIndex)
+        );
 
         setRivers((prev) =>
-          prev.map((card, index) => (index === selectedPairs.river ? randomCard : card))
+          prev.map((card, index) =>
+            index === selectedPairs.river ? randomCard : card
+          )
         );
 
         setPlayers((prev) =>
@@ -165,7 +179,9 @@ const GameBoard = ({ cards }) => {
             player.id === pondIndex
               ? {
                   ...player,
-                  cards: player.cards.map((card, idx) => (idx === cardIndex ? riverCard : card)),
+                  cards: player.cards.map((card, idx) =>
+                    idx === cardIndex ? riverCard : card
+                  ),
                 }
               : player
           )
@@ -176,7 +192,9 @@ const GameBoard = ({ cards }) => {
       } else {
         setPickMode(PickMode.OPEN_SWAP);
         setRivers((prev) =>
-          prev.map((card, index) => (index === selectedPairs.river ? pondCard : card))
+          prev.map((card, index) =>
+            index === selectedPairs.river ? pondCard : card
+          )
         );
 
         setPlayers((prev) =>
@@ -184,7 +202,9 @@ const GameBoard = ({ cards }) => {
             player.id === pondIndex
               ? {
                   ...player,
-                  cards: player.cards.map((card, idx) => (idx === cardIndex ? riverCard : card)),
+                  cards: player.cards.map((card, idx) =>
+                    idx === cardIndex ? riverCard : card
+                  ),
                 }
               : player
           )
@@ -215,9 +235,15 @@ const GameBoard = ({ cards }) => {
 
             leftCards.forEach((leftCard) => {
               if (!leftCard) return;
-              if (card.points.type === 'season' && leftCard.season === card.points.season) {
+              if (
+                card.points.type === 'season' &&
+                leftCard.season === card.points.season
+              ) {
                 totalScore += card.points.value;
-              } else if (card.points.type === 'animal' && leftCard.animal === card.points.animal) {
+              } else if (
+                card.points.type === 'animal' &&
+                leftCard.animal === card.points.animal
+              ) {
                 totalScore += card.points.value;
               }
             });
@@ -228,9 +254,15 @@ const GameBoard = ({ cards }) => {
 
             rightCards.forEach((rightCard) => {
               if (!rightCard) return;
-              if (card.points.type === 'season' && rightCard.season === card.points.season) {
+              if (
+                card.points.type === 'season' &&
+                rightCard.season === card.points.season
+              ) {
                 totalScore += card.points.value;
-              } else if (card.points.type === 'animal' && rightCard.animal === card.points.animal) {
+              } else if (
+                card.points.type === 'animal' &&
+                rightCard.animal === card.points.animal
+              ) {
                 totalScore += card.points.value;
               }
             });
@@ -238,9 +270,15 @@ const GameBoard = ({ cards }) => {
             // Index sisanya (1, 2, 5, 6): cek di board sendiri
             cards.forEach((ownCard) => {
               if (!ownCard || ownCard === card) return;
-              if (card.points.type === 'season' && ownCard.season === card.points.season) {
+              if (
+                card.points.type === 'season' &&
+                ownCard.season === card.points.season
+              ) {
                 totalScore += card.points.value;
-              } else if (card.points.type === 'animal' && ownCard.animal === card.points.animal) {
+              } else if (
+                card.points.type === 'animal' &&
+                ownCard.animal === card.points.animal
+              ) {
                 totalScore += card.points.value;
               }
             });
@@ -263,9 +301,15 @@ const GameBoard = ({ cards }) => {
 
             leftCards.forEach((leftCard) => {
               if (!leftCard) return;
-              if (card.points.type === 'season' && leftCard.season === card.points.season) {
+              if (
+                card.points.type === 'season' &&
+                leftCard.season === card.points.season
+              ) {
                 totalScore += card.points.value;
-              } else if (card.points.type === 'animal' && leftCard.animal === card.points.animal) {
+              } else if (
+                card.points.type === 'animal' &&
+                leftCard.animal === card.points.animal
+              ) {
                 totalScore += card.points.value;
               }
             });
@@ -276,9 +320,15 @@ const GameBoard = ({ cards }) => {
 
             rightCards.forEach((rightCard) => {
               if (!rightCard) return;
-              if (card.points.type === 'season' && rightCard.season === card.points.season) {
+              if (
+                card.points.type === 'season' &&
+                rightCard.season === card.points.season
+              ) {
                 totalScore += card.points.value;
-              } else if (card.points.type === 'animal' && rightCard.animal === card.points.animal) {
+              } else if (
+                card.points.type === 'animal' &&
+                rightCard.animal === card.points.animal
+              ) {
                 totalScore += card.points.value;
               }
             });
@@ -286,9 +336,15 @@ const GameBoard = ({ cards }) => {
             // Index sisanya (2, 3, 4, 5): cek di board sendiri
             cards.forEach((ownCard) => {
               if (!ownCard || ownCard === card) return;
-              if (card.points.type === 'season' && ownCard.season === card.points.season) {
+              if (
+                card.points.type === 'season' &&
+                ownCard.season === card.points.season
+              ) {
                 totalScore += card.points.value;
-              } else if (card.points.type === 'animal' && ownCard.animal === card.points.animal) {
+              } else if (
+                card.points.type === 'animal' &&
+                ownCard.animal === card.points.animal
+              ) {
                 totalScore += card.points.value;
               }
             });
@@ -346,7 +402,8 @@ const GameBoard = ({ cards }) => {
                     <p>{card.points.value}</p>
                   ) : (
                     <p>
-                      {convertTypeIntoEmoji(card.points[card.points.type])} = {card.points.value}
+                      {convertTypeIntoEmoji(card.points[card.points.type])} ={' '}
+                      {card.points.value}
                     </p>
                   )}
                 </>
@@ -372,12 +429,15 @@ const GameBoard = ({ cards }) => {
             >
               {card && (
                 <>
-                  <p className="card-type">{convertTypeIntoEmoji(card.animal)}</p>
+                  <p className="card-type">
+                    {convertTypeIntoEmoji(card.animal)}
+                  </p>
                   {card.points.type === 'self' ? (
                     <p>{card.points.value}</p>
                   ) : (
                     <p>
-                      {convertTypeIntoEmoji(card.points[card.points.type])} = {card.points.value}
+                      {convertTypeIntoEmoji(card.points[card.points.type])} ={' '}
+                      {card.points.value}
                     </p>
                   )}
                 </>
@@ -400,7 +460,8 @@ const GameBoard = ({ cards }) => {
                 <p>{river.points.value}</p>
               ) : (
                 <p>
-                  {convertTypeIntoEmoji(river.points[river.points.type])} = {river.points.value}
+                  {convertTypeIntoEmoji(river.points[river.points.type])} ={' '}
+                  {river.points.value}
                 </p>
               )}
             </div>
@@ -427,7 +488,8 @@ const GameBoard = ({ cards }) => {
                     <p>{card.points.value}</p>
                   ) : (
                     <p>
-                      {convertTypeIntoEmoji(card.points[card.points.type])} = {card.points.value}
+                      {convertTypeIntoEmoji(card.points[card.points.type])} ={' '}
+                      {card.points.value}
                     </p>
                   )}
                 </>
@@ -458,7 +520,8 @@ const GameBoard = ({ cards }) => {
                     <p>{card.points.value}</p>
                   ) : (
                     <p>
-                      {convertTypeIntoEmoji(card.points[card.points.type])} = {card.points.value}
+                      {convertTypeIntoEmoji(card.points[card.points.type])} ={' '}
+                      {card.points.value}
                     </p>
                   )}
                 </>
@@ -480,7 +543,14 @@ const GameBoard = ({ cards }) => {
         }}
       >
         <h3>Scoreboard</h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', marginTop: '5px' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '3px',
+            marginTop: '5px',
+          }}
+        >
           {players.map((player) => (
             <p
               key={player.id}

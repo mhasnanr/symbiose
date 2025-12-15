@@ -18,7 +18,7 @@ const AddRoomPage = () => {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/room', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/room`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -37,15 +37,29 @@ const AddRoomPage = () => {
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="title">Title</label>
-        <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input
+          type="text"
+          id="title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
       </div>
       <div>
         <label htmlFor="desc">Description</label>
-        <input type="text" id="desc" value={desc} onChange={(e) => setDesc(e.target.value)} />
+        <input
+          type="text"
+          id="desc"
+          value={desc}
+          onChange={(e) => setDesc(e.target.value)}
+        />
       </div>
       <div>
         <label htmlFor="roomType">Room Type</label>
-        <select id="roomType" value={roomType} onChange={(e) => setRoomType(e.target.value)}>
+        <select
+          id="roomType"
+          value={roomType}
+          onChange={(e) => setRoomType(e.target.value)}
+        >
           <option value="public">Public</option>
           <option value="private">Private</option>
         </select>

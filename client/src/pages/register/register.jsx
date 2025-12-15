@@ -7,7 +7,7 @@ const RegisterPage = () => {
   const register = (e) => {
     e.preventDefault();
 
-    fetch('http://localhost:3000/auth/register', {
+    fetch('{$}/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -34,7 +34,12 @@ const RegisterPage = () => {
   return (
     <form onSubmit={register}>
       <label htmlFor="email">Email</label>
-      <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input
+        type="email"
+        name="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
       <br />
       <label htmlFor="password">Password</label>
       <input

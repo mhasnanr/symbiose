@@ -11,7 +11,7 @@ This is a web-based multiplayer card game where players interact with each other
 
 ## Client-Server Communication
 
-The client-side React application communicates with the server-side Node.js application through a REST API. The server runs on `http://localhost:3000`, and the client runs on `http://localhost:5173`.
+The client-side React application communicates with the server-side Node.js application through a REST API. The server runs on `http://localhost:3456`, and the client runs on `http://localhost:5173`.
 
 Authentication is handled using session-based authentication with Passport.js. The client sends credentials to the server, and upon successful authentication, the server creates a session and sends a session cookie back to the client. This cookie is included in subsequent requests to maintain the session.
 

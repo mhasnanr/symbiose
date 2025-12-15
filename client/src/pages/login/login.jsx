@@ -9,7 +9,7 @@ const LoginPage = () => {
   const login = (e) => {
     e.preventDefault();
 
-    fetch('http://localhost:3000/auth/login', {
+    fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -36,7 +36,12 @@ const LoginPage = () => {
   return (
     <form onSubmit={login}>
       <label htmlFor="email">Email</label>
-      <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input
+        type="email"
+        name="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
       <br />
       <label htmlFor="password">Password</label>
       <input
