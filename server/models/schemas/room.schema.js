@@ -26,6 +26,10 @@ const roomSchema = new Schema(
       required: false,
       default: null,
     },
+    status: {
+      type: String,
+      enum: ['open', 'in_game', 'closed'],
+    },
     members: [
       {
         type: Schema.Types.ObjectId,
