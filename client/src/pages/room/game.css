@@ -28,7 +28,6 @@
 .card-container div {
   width: 120px;
   height: 120px;
-  /* border: 1px solid white; */
   display: grid;
   place-content: center;
   text-align: center;

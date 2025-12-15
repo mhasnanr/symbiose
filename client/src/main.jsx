@@ -16,14 +16,6 @@ createRoot(document.getElementById('root')).render(
         path="/"
         element={
           <AuthorizedRoute>
-            <App />
-          </AuthorizedRoute>
-        }
-      />
-      <Route
-        path="/room"
-        element={
-          <AuthorizedRoute>
             <RoomListPage />
           </AuthorizedRoute>
         }

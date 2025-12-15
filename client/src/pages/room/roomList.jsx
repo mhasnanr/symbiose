@@ -58,6 +58,24 @@ const RoomListPage = () => {
           </button>
         </div>
       ))}
+
+      {rooms.length === 0 && (
+        <div className="empty-rooms">
+          No game rooms available. Create one to start playing!
+        </div>
+      )}
+
+      <button
+        className="btn-logout"
+        onClick={() => {
+          fetch('http://localhost:3000/auth/logout', {
+            method: 'post',
+            credentials: 'include',
+          }).then(() => navigate('/login'));
+        }}
+      >
+        Logout
+      </button>
     </div>
   );
 };
