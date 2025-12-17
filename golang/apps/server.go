@@ -5,11 +5,15 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/mhasnanr/symbiose-go-server/apps/auth"
+	"github.com/mhasnanr/symbiose-go-server/apps/health"
 	"github.com/mhasnanr/symbiose-go-server/apps/users"
 )
 
 
 func registerRoute(app *fiber.App, db *sql.DB) {
+	health.Run(app, db)
+	auth.Run(app, db)
 	users.Run(app, db)
 }
 
